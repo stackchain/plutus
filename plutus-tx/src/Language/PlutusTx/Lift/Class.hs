@@ -53,7 +53,7 @@ import           Data.Proxy
 import qualified Data.Text                              as T
 import           Data.Traversable
 import qualified Data.Text.Prettyprint.Doc              as PP
-import Language.Plutus.Common
+import ErrorCode
 import qualified Control.Exception as Prelude (throw, Exception)
 import qualified Data.Typeable as Prelude
 
@@ -559,9 +559,9 @@ makeLift name = do
 -- | In case of exception, it will call `fail` in TemplateHaskell
 runTHCompile :: THCompile a -> TH.Q (a, Deps)
 runTHCompile m = do
-    res <- runExceptT $
+    res <- runExceptT .
           flip runReaderT mempty $
-          runStateT m mempty
+          flip runStateT mempty m
     case res of
         Left a -> fail $ "Generating Lift instances: " ++ show (PP.pretty a)
         Right b -> pure b
