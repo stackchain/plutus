@@ -113,7 +113,6 @@ instance ErrorCode LiftError where
     errorCode UserLiftError {} = 46
     errorCode LiftMissingDataCons {} = 47
     errorCode LiftMissingVar {} = 48
->>>>>>> 60e3977bd (Added some tx and tx-plugin errors)
 
 {- Note [Impredicative function universe wrappers]
 We are completely independent of the function universe. We generate constants (so we care about the type universe),
@@ -475,7 +474,7 @@ compileConstructorClause dt@TH.DatatypeInfo{TH.datatypeName=tyName, TH.datatypeV
     -- `lift arg` for each arg we bind in the pattern. We need the `unsafeTExpCoerce` since this will
     -- necessarily involve types we don't know now: the types of each argument. However, since we
     -- know the type of `lift arg` we can get back into typed land quickly.
-    let liftExprs :: [TH.TExpQ (RTCompile PLC.DefaultUni fun (Term TyName Name PLC.DefaultUni ()))]
+    let liftExprs :: [TH.TExpQ (RTCompile PLC.DefaultUni fun (Term TyName Name PLC.DefaultUni fun ()))]
         liftExprs = fmap (\pn -> TH.unsafeTExpCoerce $ TH.varE 'lift `TH.appE` TH.varE pn) patNames
 
     rhsExpr <- if isNewtype dt
