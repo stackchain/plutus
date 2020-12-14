@@ -49,7 +49,6 @@ import qualified Data.Text.Prettyprint.Doc              as PP
 import           Data.Traversable
 import           ErrorCode
 import qualified FamInstEnv                             as GHC
-import           Text.Printf
 
 import           System.IO.Unsafe                       (unsafePerformIO)
 
@@ -178,7 +177,7 @@ runPluginM pctx act = do
     case res of
         Right x -> pure x
         Left err ->
-            let errInGhc = GHC.ProgramError $ "GHC Core to PLC plugin: " ++ show (PP.pretty (printf "E%03d" $ errorCode err :: String) <> PP.pretty err)
+            let errInGhc = GHC.ProgramError $ "GHC Core to PLC plugin: " ++ show (PP.pretty (errorCode err) <> ":" <> PP.pretty err)
             in liftIO $ GHC.throwGhcExceptionIO errInGhc
 
 -- | Compiles all the marked expressions in the given binder into PLC literals.

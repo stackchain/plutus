@@ -39,7 +39,6 @@ import qualified Data.Text                          as T
 import           Data.Text.Prettyprint.Doc
 import           Data.Text.Prettyprint.Doc.Internal (Doc (Text))
 import           ErrorCode
-import           Text.Printf
 
 {- Note [Annotations and equality]
 Equality of two errors DOES DEPEND on their annotations.
@@ -154,7 +153,7 @@ instance ( Pretty ann
 instance (GShow uni, Closed uni, uni `Everywhere` PrettyConst,  Pretty ann, Pretty fun, Pretty term) =>
             PrettyBy PrettyConfigPlc (TypeError term uni fun ann) where
     prettyBy config e@(KindMismatch ann ty k k')          =
-        pretty (printf "E%03d" $ errorCode e :: String) <> ":" <+>
+        pretty (errorCode e) <> ":" <+>
         "Kind mismatch at" <+> pretty ann <+>
         "in type" <+> squotes (prettyBy config ty) <>
         ". Expected kind" <+> squotes (prettyBy config k) <+>
@@ -186,27 +185,27 @@ instance (GShow uni, Closed uni, uni `Everywhere` PrettyConst, Pretty fun, Prett
 
 
 instance ErrorCode (ParseError _a) where
-    errorCode InvalidBuiltinConstant {} = 10
-    errorCode UnknownBuiltinFunction {} = 9
-    errorCode UnknownBuiltinType {}     = 8
-    errorCode Unexpected {}             = 7
-    errorCode LexErr {}                 = 6
+    errorCode InvalidBuiltinConstant {} = E 10
+    errorCode UnknownBuiltinFunction {} = E 9
+    errorCode UnknownBuiltinType {}     = E 8
+    errorCode Unexpected {}             = E 7
+    errorCode LexErr {}                 = E 6
 
 instance ErrorCode (UniqueError _a) where
-      errorCode FreeVariable {}    = 21
-      errorCode IncoherentUsage {} = 12
-      errorCode MultiplyDefined {} = 11
+      errorCode FreeVariable {}    = E 21
+      errorCode IncoherentUsage {} = E 12
+      errorCode MultiplyDefined {} = E 11
 
 instance ErrorCode (NormCheckError _a _b _c _d _e) where
-      errorCode BadTerm {} = 14
-      errorCode BadType {} = 13
+      errorCode BadTerm {} = E 14
+      errorCode BadType {} = E 13
 
 instance ErrorCode (TypeError _a _b _c _d) where
-    errorCode FreeVariableE {}           = 20
-    errorCode FreeTypeVariableE {}       = 19
-    errorCode TypeMismatch {}            = 16
-    errorCode KindMismatch {}            = 15
-    errorCode UnknownBuiltinFunctionE {} = 18
+    errorCode FreeVariableE {}           = E 20
+    errorCode FreeTypeVariableE {}       = E 19
+    errorCode TypeMismatch {}            = E 16
+    errorCode KindMismatch {}            = E 15
+    errorCode UnknownBuiltinFunctionE {} = E 18
 
 instance ErrorCode (Error _a _b _c) where
     errorCode (ParseErrorE e)           = errorCode e

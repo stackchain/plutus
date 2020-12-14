@@ -2,9 +2,11 @@
 module Main where
 
 import           Errors
+import ErrorCode
 import           TH.GenCodes
 
 -- | Executable to help developers by returning a currently-unused error code
 main :: IO ()
 main =  putStrLn $ "An error code that is not currently in-use is: "
-                 ++ show (maximum $(genCodes allErrors) + 1)
+                 ++ show (case maximum $(genCodes allErrors) of
+                              E n -> n+ 1)

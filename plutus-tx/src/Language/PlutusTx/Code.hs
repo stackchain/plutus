@@ -63,7 +63,7 @@ instance Show ImpossibleDeserialisationFailure where
 instance Exception ImpossibleDeserialisationFailure
 
 instance ErrorCode ImpossibleDeserialisationFailure where
-      errorCode ImpossibleDeserialisationFailure {} = 40
+      errorCode ImpossibleDeserialisationFailure {} = E 40
 
 -- | Get the actual Plutus Core program out of a 'CompiledCodeIn'.
 getPlc

@@ -1,8 +1,11 @@
 module ErrorCode
     ( ErrorCode(..)
+    , E(..)
     ) where
 
 import           Numeric.Natural
+import Data.Text.Prettyprint.Doc
+import Text.Printf
 
 {- NOTE [Error Codes of plutus errors]
 
@@ -71,4 +74,12 @@ to put into use the "wrapper-constructors" of our error-grouppings.
 
 -- | Assigns an error-code (positive number) to data-constructors (values) of error types.
 class ErrorCode a where
-    errorCode :: a -> Natural
+    errorCode :: a -> E
+
+-- a shorthand wrapper to Natural so as to override
+-- the pretty instance of Natural, with zero padding
+newtype E = E Natural
+    deriving newtype (Eq, Ord)
+
+instance Pretty E where
+    pretty (E n) = pretty (printf "E%03d" n :: String)

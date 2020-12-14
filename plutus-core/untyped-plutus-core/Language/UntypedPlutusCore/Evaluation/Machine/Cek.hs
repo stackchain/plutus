@@ -119,8 +119,8 @@ data CekUserError
 
 -- FIXME: should this be the same errorcodes as the typed-plutus-core.CekUserError original datatype?
 instance ErrorCode CekUserError where
-      errorCode CekEvaluationFailure {}  = 39
-      errorCode       CekOutOfExError {} = 38
+      errorCode CekEvaluationFailure {}  = E 39
+      errorCode       CekOutOfExError {} = E 38
 
 {- Note [Being generic over @term@ in 'CekM']
 We have a @term@-generic version of 'CekM' called 'CekCarryingM', which itself requires a

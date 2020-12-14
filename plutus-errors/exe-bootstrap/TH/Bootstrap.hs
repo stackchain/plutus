@@ -9,6 +9,7 @@ import           Data.Map                     as M
 import           Language.Haskell.TH
 import           Language.Haskell.TH.Datatype
 import           Numeric.Natural
+import ErrorCode
 
 {- |
 The purpose of this function is to help in the (re)-generation of 'ErrorCode' instances
@@ -51,7 +52,10 @@ makeInstance (parentName, countTyVars) ies =
     let appliedTy = genSaturatedTypeCon parentName countTyVars
     in InstanceD Nothing [] (AppT (ConT (mkName "ErrorCode")) appliedTy)
             [FunD (mkName "errorCode") $
-               fmap (\ (d,i) -> Clause [RecP d []] (NormalB $ LitE $ IntegerL $ toInteger i) []) ies
+               fmap (\ (d,i) -> Clause [RecP d []] (NormalB $
+                                                     ConE 'E `AppE`
+                                                     (LitE $ IntegerL $ toInteger i)
+                                                  ) []) ies
                ++ [errorCodeCatchAllFun]
             ]
     where
@@ -68,4 +72,4 @@ makeInstance (parentName, countTyVars) ies =
       -- a dummy catch-all generated code for convenience
       -- (but leads to unsafety because it makes the method total function)
       errorCodeCatchAllFun :: Clause
-      errorCodeCatchAllFun = Clause [WildP] (NormalB $ LitE $ IntegerL 0) []
+      errorCodeCatchAllFun = Clause [WildP] (NormalB $ ConE 'E `AppE` (LitE $ IntegerL 0)) []

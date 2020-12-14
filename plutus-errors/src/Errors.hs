@@ -15,7 +15,7 @@ import qualified Language.PlutusIR.Parser                          as PIR
 import qualified Language.PlutusTx.Code                            as PTX
 import qualified Language.PlutusTx.Compiler.Error                  as PTX
 import qualified Language.PlutusTx.Lift.Class                      as PTX
-import qualified Language.UntypedPlutusCore.Evaluation.Machine.Cek as PLCU
+import qualified Language.UntypedPlutusCore.Evaluation.Machine.Cek as UPLC
 
 {- | A collection of error instances which are obsolete, together with their error codes bundled to one instance.
 See plutus-errors/README.md
@@ -26,7 +26,7 @@ data ObsoleteErrors =
     -- append here the obsolete errors
 
 instance ErrorCode ObsoleteErrors where
-    errorCode ReservedErrorCode {} = 0
+    errorCode ReservedErrorCode {} = E 0
     -- append here the corresponding obsolete error codes
 
 -- | All errors among the whole Plutus project. This includes both existing and obsolete errors.
@@ -68,8 +68,8 @@ allErrors =
    , 'PLC.EmptyBuiltinArityMachineError
    , 'PLC.CekOutOfExError
    , 'PLC.CekEvaluationFailure
-   , 'PLCU.CekOutOfExError
-   , 'PLCU.CekEvaluationFailure
+   , 'UPLC.CekOutOfExError
+   , 'UPLC.CekEvaluationFailure
    , 'PTX.ImpossibleDeserialisationFailure
    , 'PTX.CompilationError
    , 'PTX.UnsupportedError

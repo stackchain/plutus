@@ -166,8 +166,8 @@ data FreeVariableError
 instance Exception FreeVariableError
 
 instance ErrorCode FreeVariableError where
-    errorCode  FreeIndex {}  = 23
-    errorCode  FreeUnique {} = 22
+    errorCode  FreeIndex {}  = E 23
+    errorCode  FreeUnique {} = E 22
 
 -- | Get the 'Index' corresponding to a given 'Unique'.
 getIndex :: (MonadReader Levels m, MonadError FreeVariableError m) => Unique -> m Index

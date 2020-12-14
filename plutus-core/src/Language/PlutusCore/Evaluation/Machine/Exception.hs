@@ -238,25 +238,25 @@ instance (PrettyPlc term, PrettyPlc err, Typeable term, Typeable err) =>
 
 
 instance ErrorCode UnliftingError where
-      errorCode        UnliftingErrorE {}        = 30
+      errorCode        UnliftingErrorE {}        = E 30
 
 instance ErrorCode (ConstAppError _a _b) where
-      errorCode        TooManyArgumentsConstAppError {} = 29
-      errorCode        TooFewArgumentsConstAppError {}  = 28
+      errorCode        TooManyArgumentsConstAppError {} = E 29
+      errorCode        TooFewArgumentsConstAppError {}  = E 28
       errorCode (UnliftingConstAppError e)              = errorCode e
 
 instance ErrorCode (MachineError err _a) where
-      errorCode        EmptyBuiltinArityMachineError {}             = 34
-      errorCode        UnexpectedBuiltinTermArgumentMachineError {} = 33
-      errorCode        BuiltinTermArgumentExpectedMachineError {}   = 32
-      errorCode        OpenTermEvaluatedMachineError {}             = 27
-      errorCode        NonFunctionalApplicationMachineError {}      = 26
-      errorCode        NonWrapUnwrappedMachineError {}              = 25
-      errorCode        NonPolymorphicInstantiationMachineError {}   = 24
+      errorCode        EmptyBuiltinArityMachineError {}             = E 34
+      errorCode        UnexpectedBuiltinTermArgumentMachineError {} = E 33
+      errorCode        BuiltinTermArgumentExpectedMachineError {}   = E 32
+      errorCode        OpenTermEvaluatedMachineError {}             = E 27
+      errorCode        NonFunctionalApplicationMachineError {}      = E 26
+      errorCode        NonWrapUnwrappedMachineError {}              = E 25
+      errorCode        NonPolymorphicInstantiationMachineError {}   = E 24
       errorCode        (ConstAppMachineError e)                     = errorCode e
-      errorCode        UnknownBuiltin {}                            = 17
+      errorCode        UnknownBuiltin {}                            = E 17
 
-instance (ErrorCode user) => ErrorCode (EvaluationError user _a _b) where
+instance (ErrorCode user, ErrorCode internal) => ErrorCode (EvaluationError user internal) where
   errorCode (InternalEvaluationError e) = errorCode e
   errorCode (UserEvaluationError e)     = errorCode e
 

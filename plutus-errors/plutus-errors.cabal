@@ -50,9 +50,11 @@ library
       template-haskell >= 2.16,
       th-abstraction < 0.4,
       containers >= 0.6,
+      prettyprinter >=1.1.0.1,
       plutus-core -any,
       plutus-tx -any,
-      plutus-tx-plugin -any
+      plutus-tx-plugin
+
 
 executable plutus-errors-next
   import: lang
@@ -60,6 +62,7 @@ executable plutus-errors-next
   hs-source-dirs: exe-next
   build-depends:
       base >=4.7 && <5,
+      plutus-core,
       plutus-errors
 
 executable plutus-errors-bootstrap
