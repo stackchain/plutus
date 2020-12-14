@@ -6,10 +6,10 @@ module TH.Bootstrap (
 
 import           Data.Foldable
 import           Data.Map                     as M
+import           ErrorCode
 import           Language.Haskell.TH
 import           Language.Haskell.TH.Datatype
 import           Numeric.Natural
-import ErrorCode
 
 {- |
 The purpose of this function is to help in the (re)-generation of 'ErrorCode' instances

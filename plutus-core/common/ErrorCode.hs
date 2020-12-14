@@ -3,9 +3,9 @@ module ErrorCode
     , E(..)
     ) where
 
+import           Data.Text.Prettyprint.Doc
 import           Numeric.Natural
-import Data.Text.Prettyprint.Doc
-import Text.Printf
+import           Text.Printf
 
 {- NOTE [Error Codes of plutus errors]
 

@@ -37,6 +37,7 @@
           (hsPkgs."template-haskell" or (errorHandler.buildDepError "template-haskell"))
           (hsPkgs."th-abstraction" or (errorHandler.buildDepError "th-abstraction"))
           (hsPkgs."containers" or (errorHandler.buildDepError "containers"))
+          (hsPkgs."prettyprinter" or (errorHandler.buildDepError "prettyprinter"))
           (hsPkgs."plutus-core" or (errorHandler.buildDepError "plutus-core"))
           (hsPkgs."plutus-tx" or (errorHandler.buildDepError "plutus-tx"))
           (hsPkgs."plutus-tx-plugin" or (errorHandler.buildDepError "plutus-tx-plugin"))
@@ -49,6 +50,7 @@
         "plutus-errors-next" = {
           depends = [
             (hsPkgs."base" or (errorHandler.buildDepError "base"))
+            (hsPkgs."plutus-core" or (errorHandler.buildDepError "plutus-core"))
             (hsPkgs."plutus-errors" or (errorHandler.buildDepError "plutus-errors"))
             ];
           buildable = true;

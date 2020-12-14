@@ -1,8 +1,8 @@
 {-# LANGUAGE TemplateHaskell #-}
 module Main where
 
+import           ErrorCode
 import           Errors
-import ErrorCode
 import           TH.GenCodes
 
 -- | Executable to help developers by returning a currently-unused error code

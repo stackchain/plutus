@@ -3,11 +3,11 @@
 module TH.GenDocs (genDocs) where
 
 import           Data.List
-import           Errors
-import           Language.Haskell.TH as TH
-import           TH.GenCodes
-import ErrorCode
 import qualified Data.Text.Prettyprint.Doc as PP
+import           ErrorCode
+import           Errors
+import           Language.Haskell.TH       as TH
+import           TH.GenCodes
 
 -- | Generate haddock documentation for all errors and their codes,
 -- by creating type-synonyms to lifted dataconstructors using a DataKinds trick.
