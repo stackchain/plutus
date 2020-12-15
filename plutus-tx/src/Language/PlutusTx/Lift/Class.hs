@@ -468,7 +468,7 @@ compileConstructorClause dt@TH.DatatypeInfo{TH.datatypeName=tyName, TH.datatypeV
       compileType (TH.VarT n)
 
     -- Build the patter for the clause definition. All the argument will be called "arg".
-    patNames <- for argTys $ \_ -> Trans.lift $ Trans.lift $ Trans.lift $ TH.newName "arg"
+    patNames <- Trans.lift $ Trans.lift $ Trans.lift $ for argTys $ \_ -> TH.newName "arg"
     let pat = TH.conP name (fmap TH.varP patNames)
 
     -- `lift arg` for each arg we bind in the pattern. We need the `unsafeTExpCoerce` since this will
@@ -517,8 +517,6 @@ compileConstructorClause dt@TH.DatatypeInfo{TH.datatypeName=tyName, TH.datatypeV
 
                         pure $ mkIterApp () (mkIterInst () constr types) lifts
                   ||]
-
-
     pure $ TH.clause [pat] (TH.normalB $ TH.unTypeQ rhsExpr) []
 
 makeLift :: TH.Name -> TH.Q [TH.Dec]
@@ -553,7 +551,6 @@ makeLift name = do
     decl <- TH.funD 'lift clauses
     let liftDecs = [TH.InstanceD Nothing constraints (liftPir uni datatypeType) [decl]]
     pure $ typeableDecs ++ liftDecs
-
 
 -- | In case of exception, it will call `fail` in TemplateHaskell
 runTHCompile :: THCompile a -> TH.Q (a, Deps)

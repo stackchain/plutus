@@ -88,7 +88,7 @@ deriving instance
 makeClassyPrisms ''NormCheckError
 
 data TypeError term uni fun ann
-    = KindMismatch ann (Type TyName uni ()) (Kind ())  (Kind ())
+    = KindMismatch ann (Type TyName uni ()) (Kind ()) (Kind ())
     | TypeMismatch ann
         term
         (Type TyName uni ())
@@ -183,7 +183,6 @@ instance (GShow uni, Closed uni, uni `Everywhere` PrettyConst, Pretty fun, Prett
     prettyBy config (TypeErrorE e)            = prettyBy config e
     prettyBy config (NormCheckErrorE e)       = prettyBy config e
 
-
 instance ErrorCode (ParseError _a) where
     errorCode InvalidBuiltinConstant {} = E 10
     errorCode UnknownBuiltinFunction {} = E 9
@@ -212,4 +211,3 @@ instance ErrorCode (Error _a _b _c) where
     errorCode (UniqueCoherencyErrorE e) = errorCode e
     errorCode (TypeErrorE e)            = errorCode e
     errorCode (NormCheckErrorE e)       = errorCode e
-
