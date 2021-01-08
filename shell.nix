@@ -50,7 +50,7 @@ let
     pass
     shellcheck
     sqlite-interactive
-    stack
+    #stack
     terraform
     yubikey-manager
     z3

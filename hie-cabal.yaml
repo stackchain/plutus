@@ -414,6 +414,9 @@ cradle:
     - path: "plutus-ledger/test"
       component: "plutus-ledger:test:plutus-ledger-test"
 
+    - path: "plutus-ledger-api/src"
+      component: "lib:plutus-ledger-api"
+
     - path: "plutus-metatheory/src"
       component: "lib:plutus-metatheory"
 
@@ -541,12 +544,6 @@ cradle:
       component: "plutus-scb:exe:plutus-scb"
 
     - path: "plutus-scb/game-contract/Main.hs"
-      component: "plutus-scb:exe:plutus-game"
-
-    - path: "plutus-scb/game-contract/default-language:.hs"
-      component: "plutus-scb:exe:plutus-game"
-
-    - path: "plutus-scb/game-contract/Haskell2010.hs"
       component: "plutus-scb:exe:plutus-game"
 
     - path: "plutus-scb/currency-contract/Main.hs"

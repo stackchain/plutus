@@ -414,6 +414,9 @@ cradle:
     - path: "plutus-ledger/test"
       component: "plutus-ledger:test:plutus-ledger-test"
 
+    - path: "plutus-ledger-api/src"
+      component: "plutus-ledger-api:lib"
+
     - path: "plutus-metatheory/src"
       component: "plutus-metatheory:lib"
 
@@ -543,12 +546,6 @@ cradle:
     - path: "plutus-scb/game-contract/Main.hs"
       component: "plutus-scb:exe:plutus-game"
 
-    - path: "plutus-scb/game-contract/default-language:.hs"
-      component: "plutus-scb:exe:plutus-game"
-
-    - path: "plutus-scb/game-contract/Haskell2010.hs"
-      component: "plutus-scb:exe:plutus-game"
-
     - path: "plutus-scb/currency-contract/Main.hs"
       component: "plutus-scb:exe:plutus-currency"
 
@@ -590,6 +587,120 @@ cradle:
 
     - path: "plutus-use-cases/test"
       component: "plutus-use-cases:test:plutus-use-cases-test"
+
+    - path: "plutus-use-cases/scripts/Main.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Main.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Crowdfunding.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Currency.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/ErrorHandling.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Escrow.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Future.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Game.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/GameStateMachine.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Lib.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/MultiSig.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/MultiSigStateMachine.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/PingPong.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/PubKey.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Prism.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Rollup.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/RPC.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Stablecoin.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/TokenAccount.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/scripts/Spec/Vesting.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Crowdfunding.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Currency.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/ErrorHandling.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Escrow.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Future.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Game.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/GameStateMachine.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Lib.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/MultiSig.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/MultiSigStateMachine.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/PingPong.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/PubKey.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Prism.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Rollup.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/RPC.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Stablecoin.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/TokenAccount.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
+
+    - path: "plutus-use-cases/test/Spec/Vesting.hs"
+      component: "plutus-use-cases:exe:plutus-use-cases-scripts"
 
     - path: "plutus-use-cases/bench/Bench.hs"
       component: "plutus-use-cases:bench:plutus-use-cases-bench"
