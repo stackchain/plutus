@@ -2,25 +2,24 @@
 
 ## Getting started
 
+**Starting the backend server**
+
 Make sure you have a local backend server running first:
 ```bash
-$(nix-build -A marlowe-playground.server-invoker)/bin/marlowe-playground webserver
+marlowe-playground-server
 ```
 
 Check the [backend documentation](../marlowe-playground-server/README.md) for more information on how to setup the Github OAuth application.
 
-Now we will build and run the front end:
+**Starting the frontend server**
+
+You can build and start the server with one simple command:
 ```bash
-cd marlowe-playground-client
-# Generate the purescript bridge files
-marlowe-playground-generate-purs
-# Download javascript dependencies
-npm install
-# Install purescript depdendencies
-npm run purs:compile
+npm run webpack:server
 ```
 
-Then run `npm run webpack:server` for an auto-reloading dev build on https://localhost:8009
+This will perform all necessary install, build, and code genration steps and finally
+spawn an auto-reloading development build at http://localhost:8009.
 
 ## Adding dependencies
 
@@ -61,7 +60,7 @@ message during the build with the actual hash value.
 The code is formatted using [purty](https://gitlab.com/joneshf/purty), and there is a CI task that will fail if the code is not properly formatted. You can apply purty to the project by calling:
 
 ```bash
-nix-shell shell.nix --run fix-purty
+fix-purty
 ```
 
 ## VSCode notes

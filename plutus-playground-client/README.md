@@ -1,25 +1,23 @@
-# Building
+# Plutus Playground Client
 
-## Server
+## Getting started
 
-Please view the instructions for building the server [here](../plutus-playground-server/README.md).
+**Starting the backend server**
 
-## Client
-
-```sh
-cd plutus-playground-client
-# Generate the purescript bridge files
-plutus-playground-generate-purs
-# Download javascript dependencies
-npm install
-# Install purescript depdendencies
-npm run purs:compile
+Make sure you have a local backend server running first:
+```bash
+plutus-playground-server
 ```
 
-Then run `npm run webpack:server` for an auto-reloading dev build on https://localhost:8009
+**Starting the frontend server**
 
-You may also want to run `npm run purs:ide` to start `psc-ide`
-support running with the correct paths.
+You can build and start the server with one simple command:
+```bash
+npm run webpack:server
+```
+
+This will perform all necessary install, build, and code genration steps and finally
+spawn an auto-reloading development build at http://localhost:8009.
 
 ## Adding dependencies
 
