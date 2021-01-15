@@ -40,10 +40,10 @@ library
   import: lang
   exposed-modules:
       Errors,
-      Docs,
-      TH.GenCodes
+      Errors.Docs,
+      Errors.TH.GenCodes
   other-modules:
-      TH.GenDocs
+      Errors.TH.GenDocs
   hs-source-dirs: src
   build-depends:
       base >=4.7 && <5,
@@ -54,7 +54,6 @@ library
       plutus-core -any,
       plutus-tx -any,
       plutus-tx-plugin
-
 
 executable plutus-errors-next
   import: lang

@@ -122,9 +122,9 @@ data CekUserError
     | CekEvaluationFailure -- ^ Error has been called or a builtin application has failed
     deriving (Show, Eq)
 
-instance ErrorCode CekUserError where
-      errorCode        CekEvaluationFailure {} = E 37
-      errorCode        CekOutOfExError {}      = E 36
+instance HasErrorCode CekUserError where
+      errorCode        CekEvaluationFailure {} = ErrorCode 37
+      errorCode        CekOutOfExError {}      = ErrorCode 36
 
 {- Note [Being generic over @term@ in 'CekM']
 We have a @term@-generic version of 'CekM' called 'CekCarryingM', which itself requires a

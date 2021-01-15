@@ -107,12 +107,12 @@ instance PP.Pretty LiftError where
 instance Show LiftError where
     show = show . PP.pretty -- for Control.Exception
 
-instance ErrorCode LiftError where
-    errorCode UnsupportedLiftType {} = E 44
-    errorCode UnsupportedLiftKind {} = E 45
-    errorCode UserLiftError {}       = E 46
-    errorCode LiftMissingDataCons {} = E 47
-    errorCode LiftMissingVar {}      = E 48
+instance HasErrorCode LiftError where
+    errorCode UnsupportedLiftType {} = ErrorCode 44
+    errorCode UnsupportedLiftKind {} = ErrorCode 45
+    errorCode UserLiftError {}       = ErrorCode 46
+    errorCode LiftMissingDataCons {} = ErrorCode 47
+    errorCode LiftMissingVar {}      = ErrorCode 48
 
 {- Note [Impredicative function universe wrappers]
 We are completely independent of the function universe. We generate constants (so we care about the type universe),

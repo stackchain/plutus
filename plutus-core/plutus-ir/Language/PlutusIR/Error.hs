@@ -38,8 +38,8 @@ data TypeErrorExt uni ann =
     deriving (Show, Eq, Generic, NFData)
 makeClassyPrisms ''TypeErrorExt
 
-instance ErrorCode (TypeErrorExt _a _b) where
-  errorCode MalformedDataConstrResType {} = E 1
+instance HasErrorCode (TypeErrorExt _a _b) where
+  errorCode MalformedDataConstrResType {} = ErrorCode 1
 
 data Error uni fun a = CompilationError a T.Text -- ^ A generic compilation error.
                      | UnsupportedError a T.Text -- ^ An error relating specifically to an unsupported feature.
@@ -49,9 +49,9 @@ data Error uni fun a = CompilationError a T.Text -- ^ A generic compilation erro
                deriving (Typeable)
 makeClassyPrisms ''Error
 
-instance ErrorCode (Error _a _b _c) where
-   errorCode UnsupportedError {} = E 3
-   errorCode CompilationError {} = E 2
+instance HasErrorCode (Error _a _b _c) where
+   errorCode UnsupportedError {} = ErrorCode 3
+   errorCode CompilationError {} = ErrorCode 2
    errorCode (PIRTypeError e)    = errorCode e
    errorCode (PLCTypeError e)    = errorCode e
    errorCode (PLCError e)        = errorCode e

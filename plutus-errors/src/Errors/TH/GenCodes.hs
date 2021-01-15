@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK hide #-}
-module TH.GenCodes (genCodes) where
+module Errors.TH.GenCodes (genCodes) where
 
 import           Data.Traversable
 import           ErrorCode

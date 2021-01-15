@@ -12,7 +12,7 @@ import           Language.Haskell.TH.Datatype
 import           Numeric.Natural
 
 {- |
-The purpose of this function is to help in the (re)-generation of 'ErrorCode' instances
+The purpose of this function is to help in the (re)-generation of 'HasErrorCode' instances
 for Plutus-errors/data-constructors. The user can call this function as a script to
 get the generated instances as Haskell code and paste/modify it accordingly next to the errors (for avoiding orphans).
 The function works by assigning a unique number to each dataconstructor, starting counting from 1.
@@ -50,10 +50,10 @@ groupConstrs ns = foldlM groupByParent mempty ns
 makeInstance :: Group -> [IxCons] -> Dec
 makeInstance (parentName, countTyVars) ies =
     let appliedTy = genSaturatedTypeCon parentName countTyVars
-    in InstanceD Nothing [] (AppT (ConT (mkName "ErrorCode")) appliedTy)
+    in InstanceD Nothing [] (AppT (ConT (mkName "HasErrorCode")) appliedTy)
             [FunD (mkName "errorCode") $
                fmap (\ (d,i) -> Clause [RecP d []] (NormalB $
-                                                     ConE 'E `AppE`
+                                                     ConE 'ErrorCode `AppE`
                                                      (LitE $ IntegerL $ toInteger i)
                                                   ) []) ies
                ++ [errorCodeCatchAllFun]
@@ -72,4 +72,4 @@ makeInstance (parentName, countTyVars) ies =
       -- a dummy catch-all generated code for convenience
       -- (but leads to unsafety because it makes the method total function)
       errorCodeCatchAllFun :: Clause
-      errorCodeCatchAllFun = Clause [WildP] (NormalB $ ConE 'E `AppE` (LitE $ IntegerL 0)) []
+      errorCodeCatchAllFun = Clause [WildP] (NormalB $ ConE 'ErrorCode `AppE` (LitE $ IntegerL 0)) []

@@ -62,8 +62,8 @@ instance Show ImpossibleDeserialisationFailure where
     show (ImpossibleDeserialisationFailure e) = "Failed to deserialise our own program! This is a bug, please report it. Caused by: " ++ show e
 instance Exception ImpossibleDeserialisationFailure
 
-instance ErrorCode ImpossibleDeserialisationFailure where
-      errorCode ImpossibleDeserialisationFailure {} = E 40
+instance HasErrorCode ImpossibleDeserialisationFailure where
+      errorCode ImpossibleDeserialisationFailure {} = ErrorCode 40
 
 -- | Get the actual Plutus Core program out of a 'CompiledCodeIn'.
 getPlc

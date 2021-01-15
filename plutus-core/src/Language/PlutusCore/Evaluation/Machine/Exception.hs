@@ -237,29 +237,29 @@ instance (PrettyPlc term, PrettyPlc err, Typeable term, Typeable err) =>
             Exception (ErrorWithCause err term)
 
 
-instance ErrorCode UnliftingError where
-      errorCode        UnliftingErrorE {}        = E 30
+instance HasErrorCode UnliftingError where
+      errorCode        UnliftingErrorE {}        = ErrorCode 30
 
-instance ErrorCode (ConstAppError _a _b) where
-      errorCode        TooManyArgumentsConstAppError {} = E 29
-      errorCode        TooFewArgumentsConstAppError {}  = E 28
+instance HasErrorCode (ConstAppError _a _b) where
+      errorCode        TooManyArgumentsConstAppError {} = ErrorCode 29
+      errorCode        TooFewArgumentsConstAppError {}  = ErrorCode 28
       errorCode (UnliftingConstAppError e)              = errorCode e
 
-instance ErrorCode (MachineError err _a) where
-      errorCode        EmptyBuiltinArityMachineError {}             = E 34
-      errorCode        UnexpectedBuiltinTermArgumentMachineError {} = E 33
-      errorCode        BuiltinTermArgumentExpectedMachineError {}   = E 32
-      errorCode        OpenTermEvaluatedMachineError {}             = E 27
-      errorCode        NonFunctionalApplicationMachineError {}      = E 26
-      errorCode        NonWrapUnwrappedMachineError {}              = E 25
-      errorCode        NonPolymorphicInstantiationMachineError {}   = E 24
+instance HasErrorCode (MachineError err _a) where
+      errorCode        EmptyBuiltinArityMachineError {}             = ErrorCode 34
+      errorCode        UnexpectedBuiltinTermArgumentMachineError {} = ErrorCode 33
+      errorCode        BuiltinTermArgumentExpectedMachineError {}   = ErrorCode 32
+      errorCode        OpenTermEvaluatedMachineError {}             = ErrorCode 27
+      errorCode        NonFunctionalApplicationMachineError {}      = ErrorCode 26
+      errorCode        NonWrapUnwrappedMachineError {}              = ErrorCode 25
+      errorCode        NonPolymorphicInstantiationMachineError {}   = ErrorCode 24
       errorCode        (ConstAppMachineError e)                     = errorCode e
-      errorCode        UnknownBuiltin {}                            = E 17
+      errorCode        UnknownBuiltin {}                            = ErrorCode 17
 
-instance (ErrorCode user, ErrorCode internal) => ErrorCode (EvaluationError user internal) where
+instance (HasErrorCode user, HasErrorCode internal) => HasErrorCode (EvaluationError user internal) where
   errorCode (InternalEvaluationError e) = errorCode e
   errorCode (UserEvaluationError e)     = errorCode e
 
 
-instance ErrorCode err => ErrorCode (ErrorWithCause err t) where
+instance HasErrorCode err => HasErrorCode (ErrorWithCause err t) where
     errorCode (ErrorWithCause e _) = errorCode e

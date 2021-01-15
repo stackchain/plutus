@@ -40,7 +40,7 @@ makeClassyPrisms ''WithContext
 
 type CompileError uni fun = WithContext T.Text (Error uni fun ())
 
-instance ErrorCode (CompileError _a _b) where
+instance HasErrorCode (CompileError _a _b) where
     errorCode (NoContext e)        = errorCode e
     errorCode (WithContextC _ _ w) = errorCode w
 
@@ -79,12 +79,12 @@ data Error uni fun a = PLCError (PLC.Error uni fun a)
                  deriving Typeable
 makeClassyPrisms ''Error
 
-instance ErrorCode (Error _a _b _c) where
-      errorCode CompilationError {}    = E 41
-      errorCode UnsupportedError {}    = E 42
-      errorCode FreeVariableError {}   = E 43
-      errorCode InvalidMarkerError {}  = E 49
-      errorCode CoreNameLookupError {} = E 50
+instance HasErrorCode (Error _a _b _c) where
+      errorCode CompilationError {}    = ErrorCode 41
+      errorCode UnsupportedError {}    = ErrorCode 42
+      errorCode FreeVariableError {}   = ErrorCode 43
+      errorCode InvalidMarkerError {}  = ErrorCode 49
+      errorCode CoreNameLookupError {} = ErrorCode 50
       errorCode (PLCError e)           = errorCode e
       errorCode (PIRError e)           = errorCode e
 

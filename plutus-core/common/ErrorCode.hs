@@ -1,21 +1,25 @@
 module ErrorCode
-    ( ErrorCode(..)
-    , E(..)
+    ( HasErrorCode(..)
+    , ErrorCode(..)
     ) where
 
 import           Data.Text.Prettyprint.Doc
 import           Numeric.Natural
 import           Text.Printf
 
-{- NOTE [Error Codes of plutus errors]
+{- Note [Error Codes of plutus errors]
 
-Our goal is to assign a project-wise unique error number (errorCode) to all errors
-that might occur during any phase of plutus code --- plutustx th deriving, plugin tx compiling,
-pir compiling, plc executing, "offline" runtime plutus code ---, so
-as to document and easily identify these plutus errors.
+Our goal is to assign a project-wide unique error number (errorCode) to all errors
+that might occur during any phase of compilation --- lifting values, compiling Plutus Tx,
+compiling PIR, executing PLC, "off-chain" Plutus code ---, so
+as to document and easily identify these errors.
 
 We drew inspiration from `rustc` compiler error-codes:
 <https://doc.rust-lang.org/nightly/nightly-rustc/rustc_errors/index.html>
+
+Related work on error hierarchy, error annotations for haskell:
+<https://gitlab.haskell.org/ghc/ghc/-/wikis/Errors-as-(structured)-values>
+<https://github.com/ghc-proposals/ghc-proposals/pull/307>
 
 An errorcode is a positive number (`Natural`) assigned to every possible data-constructor
 that represents an exceptional case. This may include both pure error-values raised
@@ -39,13 +43,13 @@ We do not uniquely tag the wrapper-constructors WrapperTC,WrapperParse,WrapperCo
 we only tag the "base error constructor" PirCompile:
 
 ```
-instance ErrorCode PirError where
+instance HasErrorCode PirError where
    errorCode PirCompile {} = 9997
    errorCode (WrapperTC e) = errorCode e
    errorCode (WrapperParse e) = errorCode e
 ```
 
-A Plutus sub-project that wants to throw an error, must depend on this package `plutus-common`.
+A Plutus sub-project that wants to throw an error, must depend on this package `plutus-core`.
 To aid in defining an instance for a brand-new (uncategorized) error or added error-dataconstructors,
 the Plutus developer can make use (but not cabal-depend upon) of the
 mega-package plutus-errors to "guess-pick" an error-code that is not currently in use
@@ -72,14 +76,15 @@ might use sub-groups of error-codes with specific ranges, e.g. (PIR : 0000 - 010
 to put into use the "wrapper-constructors" of our error-grouppings.
 -}
 
--- | Assigns an error-code (positive number) to data-constructors (values) of error types.
-class ErrorCode a where
-    errorCode :: a -> E
+-- | Assigns an error-code to data-constructors (values) of error types.
+-- Note, when implementing this method you're only supposed to look at
+-- the outermost constructor (whnf) of the 'a' value to decide for the error-code.
+class HasErrorCode a where
+    errorCode :: a -> ErrorCode
 
--- a shorthand wrapper to Natural so as to override
--- the pretty instance of Natural, with zero padding
-newtype E = E Natural
+-- | A wrapper to Natural so as to override the pretty instance of Natural with zero padding
+newtype ErrorCode = ErrorCode Natural
     deriving newtype (Eq, Ord)
 
-instance Pretty E where
-    pretty (E n) = pretty (printf "E%03d" n :: String)
+instance Pretty ErrorCode where
+    pretty (ErrorCode n) = pretty (printf "E%03d" n :: String)

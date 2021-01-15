@@ -3,10 +3,10 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_GHC -Wno-unused-top-binds #-}
 {-# OPTIONS_HADDOCK ignore-exports #-}
--- | All the Plutus errors project-wise, indexed by their error code.
-module Docs () where
+-- | All the Plutus errors project-wide, indexed by their error code.
+module Errors.Docs () where
 
-import           TH.GenDocs
+import           Errors.TH.GenDocs
 
 genDocs
 

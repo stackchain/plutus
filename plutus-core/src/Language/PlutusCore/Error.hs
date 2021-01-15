@@ -183,30 +183,30 @@ instance (GShow uni, Closed uni, uni `Everywhere` PrettyConst, Pretty fun, Prett
     prettyBy config (TypeErrorE e)            = prettyBy config e
     prettyBy config (NormCheckErrorE e)       = prettyBy config e
 
-instance ErrorCode (ParseError _a) where
-    errorCode InvalidBuiltinConstant {} = E 10
-    errorCode UnknownBuiltinFunction {} = E 9
-    errorCode UnknownBuiltinType {}     = E 8
-    errorCode Unexpected {}             = E 7
-    errorCode LexErr {}                 = E 6
+instance HasErrorCode (ParseError _a) where
+    errorCode InvalidBuiltinConstant {} = ErrorCode 10
+    errorCode UnknownBuiltinFunction {} = ErrorCode 9
+    errorCode UnknownBuiltinType {}     = ErrorCode 8
+    errorCode Unexpected {}             = ErrorCode 7
+    errorCode LexErr {}                 = ErrorCode 6
 
-instance ErrorCode (UniqueError _a) where
-      errorCode FreeVariable {}    = E 21
-      errorCode IncoherentUsage {} = E 12
-      errorCode MultiplyDefined {} = E 11
+instance HasErrorCode (UniqueError _a) where
+      errorCode FreeVariable {}    = ErrorCode 21
+      errorCode IncoherentUsage {} = ErrorCode 12
+      errorCode MultiplyDefined {} = ErrorCode 11
 
-instance ErrorCode (NormCheckError _a _b _c _d _e) where
-      errorCode BadTerm {} = E 14
-      errorCode BadType {} = E 13
+instance HasErrorCode (NormCheckError _a _b _c _d _e) where
+      errorCode BadTerm {} = ErrorCode 14
+      errorCode BadType {} = ErrorCode 13
 
-instance ErrorCode (TypeError _a _b _c _d) where
-    errorCode FreeVariableE {}           = E 20
-    errorCode FreeTypeVariableE {}       = E 19
-    errorCode TypeMismatch {}            = E 16
-    errorCode KindMismatch {}            = E 15
-    errorCode UnknownBuiltinFunctionE {} = E 18
+instance HasErrorCode (TypeError _a _b _c _d) where
+    errorCode FreeVariableE {}           = ErrorCode 20
+    errorCode FreeTypeVariableE {}       = ErrorCode 19
+    errorCode TypeMismatch {}            = ErrorCode 16
+    errorCode KindMismatch {}            = ErrorCode 15
+    errorCode UnknownBuiltinFunctionE {} = ErrorCode 18
 
-instance ErrorCode (Error _a _b _c) where
+instance HasErrorCode (Error _a _b _c) where
     errorCode (ParseErrorE e)           = errorCode e
     errorCode (UniqueCoherencyErrorE e) = errorCode e
     errorCode (TypeErrorE e)            = errorCode e

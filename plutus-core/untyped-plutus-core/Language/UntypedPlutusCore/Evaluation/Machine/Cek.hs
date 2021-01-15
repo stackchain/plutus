@@ -118,9 +118,9 @@ data CekUserError
     deriving (Show, Eq)
 
 -- FIXME: should this be the same errorcodes as the typed-plutus-core.CekUserError original datatype?
-instance ErrorCode CekUserError where
-      errorCode CekEvaluationFailure {}  = E 39
-      errorCode       CekOutOfExError {} = E 38
+instance HasErrorCode CekUserError where
+      errorCode CekEvaluationFailure {}  = ErrorCode 39
+      errorCode       CekOutOfExError {} = ErrorCode 38
 
 {- Note [Being generic over @term@ in 'CekM']
 We have a @term@-generic version of 'CekM' called 'CekCarryingM', which itself requires a

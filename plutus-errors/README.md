@@ -4,7 +4,7 @@ The `ErrorCode` typeclass under `plutus-core/common/ErrorCode.hs`
 assigns a positive number (`Natural`) to every error thrown by Plutus code.
 This package provides:
 
-1. A Haddock catalogue of all errors (in-use or obsolete) and their codes `src/Docs.hs`.
+1. A Haddock catalogue of all errors (in-use or obsolete) and their codes `src/Errors/Docs.hs`.
 2. A check for duplicates among error codes (implicitly achieved by haddock).
 3. An executable `plutus-errors-next` to be used by Plutus developers to fetch a currently-unused error code (number).
 4. An executable `plutus-errors-bootstrap` to initialize the codebase with automatically-generated `ErrorCode` instances.

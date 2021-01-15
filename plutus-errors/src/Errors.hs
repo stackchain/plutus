@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK hide #-}
--- | The cataloguing of all Plutus errors, obsolete or not.
+-- | The catalogue of all Plutus errors, obsolete or not.
 module Errors (allErrors) where
 
 import           ErrorCode
@@ -25,8 +25,8 @@ data ObsoleteErrors =
     ReservedErrorCode
     -- append here the obsolete errors
 
-instance ErrorCode ObsoleteErrors where
-    errorCode ReservedErrorCode {} = E 0
+instance HasErrorCode ObsoleteErrors where
+    errorCode ReservedErrorCode {} = ErrorCode 0
     -- append here the corresponding obsolete error codes
 
 -- | All errors among the whole Plutus project. This includes both existing and obsolete errors.
