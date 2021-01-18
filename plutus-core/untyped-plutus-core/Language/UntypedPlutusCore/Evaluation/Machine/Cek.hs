@@ -43,6 +43,7 @@ module Language.UntypedPlutusCore.Evaluation.Machine.Cek
 where
 
 import           PlutusPrelude
+import           ErrorCode
 
 import           Language.UntypedPlutusCore.Core
 import           Language.UntypedPlutusCore.Subst
@@ -51,10 +52,13 @@ import           Language.PlutusCore.Constant
 import           Language.PlutusCore.Evaluation.Machine.ExBudgeting
 import           Language.PlutusCore.Evaluation.Machine.ExMemory
 import           Language.PlutusCore.Evaluation.Machine.Exception
+import qualified Language.PlutusCore.Evaluation.Machine.Cek as Typed (CekUserError (..))
 import           Language.PlutusCore.Evaluation.Result
 import           Language.PlutusCore.Name
 import           Language.PlutusCore.Pretty
 import           Language.PlutusCore.Universe
+
+
 
 import           Control.Lens                                       (AReview)
 import           Control.Lens.Operators
@@ -66,7 +70,7 @@ import           Control.Monad.State.Strict
 import           Data.Array
 import           Data.HashMap.Monoidal
 import           Data.Text.Prettyprint.Doc
-import           ErrorCode
+
 
 {- Note [Scoping]
    The CEK machine does not rely on the global uniqueness condition, so the renamer pass is not a
@@ -117,10 +121,10 @@ data CekUserError
     | CekEvaluationFailure -- ^ Error has been called or a builtin application has failed
     deriving (Show, Eq)
 
--- FIXME: should this be the same errorcodes as the typed-plutus-core.CekUserError original datatype?
+-- Note: reusing the error-codes of the original Typed CekOutOfExError
 instance HasErrorCode CekUserError where
-      errorCode CekEvaluationFailure {}  = ErrorCode 39
-      errorCode       CekOutOfExError {} = ErrorCode 38
+      errorCode CekEvaluationFailure  = errorCode Typed.CekEvaluationFailure
+      errorCode  (CekOutOfExError a b) = errorCode $ Typed.CekOutOfExError a b
 
 {- Note [Being generic over @term@ in 'CekM']
 We have a @term@-generic version of 'CekM' called 'CekCarryingM', which itself requires a

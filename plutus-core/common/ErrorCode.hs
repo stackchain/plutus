@@ -84,7 +84,7 @@ class HasErrorCode a where
 
 -- | A wrapper to Natural so as to override the pretty instance of Natural with zero padding
 newtype ErrorCode = ErrorCode Natural
-    deriving newtype (Eq, Ord)
+    deriving newtype (Eq, Ord, Enum)
 
 instance Pretty ErrorCode where
     pretty (ErrorCode n) = pretty (printf "E%03d" n :: String)

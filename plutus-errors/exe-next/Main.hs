@@ -1,12 +1,12 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}
 module Main where
 
-import           ErrorCode
 import           Errors
 import           Errors.TH.GenCodes
+import           Data.Text.Prettyprint.Doc
 
 -- | Executable to help developers by returning a currently-unused error code
 main :: IO ()
-main =  putStrLn $ "An error code that is not currently in-use is: "
-                 ++ show (case maximum $(genCodes allErrors) of
-                              ErrorCode n -> n+ 1)
+main =  print $
+        "An error code that is not currently in-use is:"
+        <+> pretty (succ $ maximum $(genCodes allErrors))

@@ -62,7 +62,8 @@ executable plutus-errors-next
   build-depends:
       base >=4.7 && <5,
       plutus-core,
-      plutus-errors
+      plutus-errors,
+      prettyprinter >=1.1.0.1
 
 executable plutus-errors-bootstrap
   import: lang
