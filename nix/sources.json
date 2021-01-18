@@ -129,6 +129,7 @@
     },
     "spago2nix": {
         "branch": "master",
+        "builtin": false,
         "description": "Generate a derivation of Spago dependencies, and use them to install them into the directory structure used by Spago.",
         "homepage": "",
         "owner": "justinwoo",
